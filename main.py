@@ -313,19 +313,19 @@ def main():
                 manos_info.append(("I" if izq else "D", ded))
 
         if lm_cara and len(manos) == 2 and det_sonic(manos, lm_cara):
-            det = "Sonic.jpeg"
+            det = "Src/Sonic.jpeg"
         elif len(manos) == 2 and det_cara(manos):
-            det = "cara.jpeg"
+            det = "Src/cara.jpeg"
         elif lm_cara and manos and det_cristiano(manos, lm_cara):
-            det = "cristiano.png"
+            det = "Src/cristiano.png"
         elif lm_cara and det_lengua(lm_cara, cal):
-            det = "gato1.png"
+            det = "Src/gato1.png"
         elif lm_cara and det_ceja(lm_cara, cal):
-            det = "perro.jpeg"
+            det = "Src/perro.jpeg"
         elif len(manos) == 1:
             ded_m, lm_m = manos[0]
             if det_rata(ded_m):
-                det = "rata.jpeg"
+                det = "Src/rata.jpeg"
 
         buf.append(det)
         conteo     = Counter(buf)
