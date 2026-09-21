@@ -3,6 +3,7 @@ import mediapipe as mp
 import math
 import numpy as np
 from collections import deque, Counter
+import platform
 
 mp_face  = mp.solutions.face_mesh
 mp_hands = mp.solutions.hands
@@ -204,10 +205,29 @@ def hud(frame, img_actual, manos_info, W, H):
 
 
 def main():
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-    if not cap.isOpened():
-        cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
-    if not cap.isOpened():
+    system = platform.system()
+    cap = None
+
+    if system == "Linux":
+        cap = cv2.VideoCapture(0)
+        if not cap.isOpened():
+            cap = cv2.VideoCapture(1)
+
+    elif system == "Windows":
+        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        if not cap.isOpened():
+            cap = cv2.VideoCapture(1, cv2.CAP_DSHOW)
+
+    elif system == "Darwin":
+        cap = cv2.VideoCapture(0, cv2.CAP_AVFOUNDATION)
+        if not cap.isOpened():
+            cap = cv2.VideoCapture(1, cv2.CAP_AVFOUNDATION)
+
+    else:
+        print("Error: Sistema operativo no compatible")
+        return
+
+    if cap is None or not cap.isOpened():
         print("Error: no se pudo abrir la camara")
         return
 
